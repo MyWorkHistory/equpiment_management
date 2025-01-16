@@ -9,10 +9,10 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-
+Auth::routes();
 
 //Route For Admin
 Route::group(['prefix' => 'admin'], function () {
