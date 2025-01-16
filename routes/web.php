@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ShippingCaseController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
 
+// Public route for home page
 Route::get('/', function () {
     return view('home');
 });
@@ -15,7 +16,7 @@ Route::get('/', function () {
 Auth::routes();
 
 //Route For Admin
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     //Dashboard Route
     Route::group(['prefix' => 'dashboard'], function () {        
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');       
