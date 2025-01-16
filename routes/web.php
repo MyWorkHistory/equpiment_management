@@ -13,8 +13,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-
 //Route For Admin
 Route::group(['prefix' => 'admin'], function () {
     //Client Route

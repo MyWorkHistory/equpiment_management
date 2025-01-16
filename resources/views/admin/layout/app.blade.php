@@ -32,7 +32,7 @@
 		@include('admin.layout.sidebar')
 		<!--end sidebar-wrapper-->
 		<!--header-->
-		@include('admin.layout.header')
+		@include('admin.layout.header')	
 		<!--end header-->
 		<!--page-wrapper-->
 		<div class="page-wrapper">
