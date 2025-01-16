@@ -8,9 +8,18 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\ClientStoreRequest;
+ 
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getJson(): JsonResponse
     {
         $collection = User::query();
@@ -19,14 +28,15 @@ class UserController extends Controller
             
            
             ->addColumn('action', function ($row) {
-                $btn = '<a class="edit-modal btn btn-info"
-                    data-info="'.$row->id.','.$row->name.','.$row->email.','.$row->city.','.$row->state.','.$row->zip.','.$row->address.','.$row->phone_number.'">
-                    <span class="glyphicon glyphicon-edit"></span> Edit
-                </button>
-                <button class="delete-modal btn btn-danger"
-                    data-info="'.$row->id.','.$row->name.','.$row->email.','.$row->city.','.$row->state.','.$row->zip.','.$row->address.','.$row->phone_number.'">
-                    <span class="glyphicon glyphicon-trash"></span> Delete
-                </button>';
+                $editUrl = route('admin.clients.edit', $row->id);
+                $btn = '
+                    <a class="edit-modal btn btn-info" href="' . $editUrl . '">
+                        <span class="glyphicon glyphicon-edit"></span> Edit
+                    </a>
+                    <button class="delete-modal btn btn-danger" data-info="' . $row->id . '">
+                        <span class="glyphicon glyphicon-trash"></span> Delete
+                    </button>
+                ';
                 return $btn;
             })
 
@@ -36,5 +46,36 @@ class UserController extends Controller
     public function index(): View
     {
         return view('admin.pages.clients.index');
+    }
+
+    public function edit(Request $request,$id): View
+    {
+        $user = User::find($id);
+        return view('admin.pages.clients.edit',compact('user'));
+    }
+
+    public function create(): View
+    {    
+        $this->authorize('create', Resource::class);     
+        dd(auth()->user());
+        return view('admin.pages.clients.create');
+    }
+
+    public function store(ClientStoreRequest $request): RedirectResponse
+    {
+        
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['account_password']),
+            'account_password' => $request['account_password'],
+            'address' => $request['address'],
+            'city' => $request['city'],
+            'state' => $request['state'],
+            'zip' => $request['zip'],
+            'phone_number' => $request['phone_number'],
+        ]);
+ 
+        return to_route('admin.clients.index');
     }
 }
