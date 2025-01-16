@@ -23,6 +23,10 @@
 	<link rel="stylesheet" href="{{asset('assets/css/app.css')}}" />
 	<link rel="stylesheet" href="{{asset('assets/css/dark-sidebar.css')}}" />
 	<link rel="stylesheet" href="{{asset('assets/css/dark-theme.css')}}" />
+	<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet"> -->
+     
+	@yield('style')
 </head>
 
 <body>
@@ -58,7 +62,12 @@
 	<!--start switcher-->
 	@include('admin.layout.switcher')
 	<!--end switcher-->
+
 	<!-- JavaScript -->
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+
+	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="{{asset('assets/js/jquery.min.js')}}"></script>
 	<script src="{{asset('assets/js/popper.min.js')}}"></script>
@@ -80,6 +89,7 @@
 	</script>
 	<!-- App JS -->
 	<script src="{{asset('assets/js/app.js')}}"></script>
+	@yield('script')
 </body>
 
 </html>

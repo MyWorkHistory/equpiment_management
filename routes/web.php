@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\EquipmentController;
 use App\Http\Controllers\Admin\EquipmentTypeController;
 use App\Http\Controllers\Admin\ShippingCaseController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\DashboardController;
 
 // Public route for home page
 Route::get('/', function () {
@@ -14,32 +15,49 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// All admin routes protected by auth middleware
+//Route For Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+    //Dashboard Route
+    Route::group(['prefix' => 'dashboard'], function () {        
+        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');       
+    });
+
     //Client Route
     Route::group(['prefix' => 'clients'], function () {
-        Route::get('/get_json', [UserController::class, 'getJson']);        
-        Route::get('/', [UserController::class, 'index'])->name('admin.clients.index');       
+        Route::get('/get_json', [UserController::class, 'getJson'])->name('admin.clients.get_json'); 
+
+        Route::get('/', [UserController::class, 'index'])->name('admin.clients.index'); 
+        Route::get('/create', [UserController::class, 'create'])->name('admin.clients.create');       
+        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.clients.edit');     
+        Route::delete('/delete/{id}', [UserController::class, 'edit'])->name('admin.clients.destory');     
     });
 
     //Contacts
     Route::group(['prefix' => 'contacts'], function () {
-        Route::get('/', [ContactController::class, 'getData'])->name('admin.contacts.index');        
+        Route::get('/get_json', [ContactController::class, 'getJson']);        
+        Route::get('/', [ContactController::class, 'index'])->name('admin.contacts.index');        
+        
     });
 
     //ShippingCase Route
     Route::group(['prefix' => 'shipping-cases'], function () {
-        Route::get('/', [ShippingCaseController::class, 'getData'])->name('admin.shipping-cases.index');        
+        Route::get('/get_json', [ShippingCaseController::class, 'getJson']);        
+        Route::get('/', [ShippingCaseController::class, 'index'])->name('admin.shipping-cases.index');        
+        
     });
 
     //Equipment Route
     Route::group(['prefix' => 'equipments'], function () {
-        Route::get('/', [EquipmentController::class, 'getData'])->name('admin.equipments.index');        
+        Route::get('/get_json', [EquipmentController::class, 'getJson']);        
+        Route::get('/', [EquipmentController::class, 'index'])->name('admin.equipments.index');        
+        
     });
 
     //EquipmentType Route
     Route::group(['prefix' => 'equipment-types'], function () {
-        Route::get('/', [EquipmentTypeController::class, 'getData'])->name('admin.equipment-types.index');        
+        Route::get('/get_json', [EquipmentTypeController::class, 'getJson']);        
+        Route::get('/', [EquipmentTypeController::class, 'index'])->name('admin.equipment-types.index');        
+        
     });
 });
 

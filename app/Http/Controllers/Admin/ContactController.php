@@ -10,5 +10,8 @@ use Illuminate\View\View;
 
 class ContactController extends Controller
 {
-    //
+    public function index(): View
+    {
+        return view('admin.pages.contact.index');
+    }
 }
