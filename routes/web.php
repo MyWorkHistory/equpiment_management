@@ -7,14 +7,15 @@ use App\Http\Controllers\Admin\EquipmentTypeController;
 use App\Http\Controllers\Admin\ShippingCaseController;
 use App\Http\Controllers\Admin\UserController;
 
+// Public route for home page
 Route::get('/', function () {
     return view('home');
 });
 
 Auth::routes();
 
-//Route For Admin
-Route::group(['prefix' => 'admin'], function () {
+// All admin routes protected by auth middleware
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     //Client Route
     Route::group(['prefix' => 'clients'], function () {
         Route::get('/get_json', [UserController::class, 'getJson']);        
@@ -24,25 +25,21 @@ Route::group(['prefix' => 'admin'], function () {
     //Contacts
     Route::group(['prefix' => 'contacts'], function () {
         Route::get('/', [ContactController::class, 'getData'])->name('admin.contacts.index');        
-        
     });
 
     //ShippingCase Route
     Route::group(['prefix' => 'shipping-cases'], function () {
         Route::get('/', [ShippingCaseController::class, 'getData'])->name('admin.shipping-cases.index');        
-        
     });
 
     //Equipment Route
     Route::group(['prefix' => 'equipments'], function () {
         Route::get('/', [EquipmentController::class, 'getData'])->name('admin.equipments.index');        
-        
     });
 
     //EquipmentType Route
     Route::group(['prefix' => 'equipment-types'], function () {
         Route::get('/', [EquipmentTypeController::class, 'getData'])->name('admin.equipment-types.index');        
-        
     });
 });
 
