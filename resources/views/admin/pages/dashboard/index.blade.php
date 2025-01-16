@@ -1,4 +1,4 @@
 @extends('admin.layout.app')
 @section('content')
-<h1> Shipping Case </h1>
+<h1>Dashboard</h1>
 @endsection

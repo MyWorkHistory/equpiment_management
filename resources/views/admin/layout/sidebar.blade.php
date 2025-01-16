@@ -12,7 +12,7 @@
     <!--navigation-->
     <ul class="metismenu" id="menu">        
         <li>
-            <a href="#">
+            <a href="{{route('admin.dashboard')}}">
                 <div class="parent-icon icon-color-2"><i class="bx bx-home-alt"></i>
                 </div>
                 <div class="menu-title">Dashboard</div>
@@ -34,7 +34,7 @@
             </a>
         </li>
         <li>
-            <a href="{{route('admin.clients.index')}}">
+            <a href="{{route('admin.shipping-cases.index')}}">
                 <div class="parent-icon icon-color-6"><i class="bx bx-task"></i>
                 </div>
                 <div class="menu-title">Shipping Case</div>

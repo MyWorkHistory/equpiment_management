@@ -10,5 +10,8 @@ use Illuminate\View\View;
 
 class EquipmentController extends Controller
 {
-    //
+    public function index(): View
+    {
+        return view('admin.pages.equipment.index');
+    }
 }
