@@ -18,13 +18,13 @@ class EquipmentTypeController extends Controller
 {
     public function __construct(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
     //     if (!$request->user()->hasRole('Client'))
     //     {
     //         return redirect('/admin/dashboard');
     //     }
-    
+
     }
 
     public function index(): View
