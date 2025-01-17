@@ -14,7 +14,7 @@
 							<div class="col-lg-6">
 								<div class="card-body p-md-5">
 									<div class="text-center">
-										<img src="assets/images/logo.svg" width="60%" alt="">										 
+										<img src="{{asset('assets/images/logo.svg')}}" width="60%" alt="">										 
 									</div>
 									 
                                     <form method="POST" action="{{ route('login') }}">

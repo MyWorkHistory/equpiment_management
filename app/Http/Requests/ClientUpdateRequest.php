@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ClientStoreRequest extends FormRequest
+class ClientUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +23,18 @@ class ClientStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required',
-            'email'=>'required|email|unique:users',
-            'address'=>'required',
-            'city'=>'required',
-            'state'=>'required',
-            'zip'=>'required',
-            'phone_number'=>'required',
-            'account_password'=>'required',
+            'name' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($this->route('id')),
+            ],
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'zip' => 'required',
+            'phone_number' => 'required',
+            'account_password' => 'sometimes|required',
         ];
     }
 
@@ -37,7 +42,7 @@ class ClientStoreRequest extends FormRequest
     {
         return [
             'name.required' => 'The name field is required.',
-            'email.unique' => 'The email address must be unique.',
+            'email.unique' => 'The email address is already in use.',
             'email.email' => 'The email address must have email style.',
             'city.required' => 'The city field is required.',
             'state.required' => 'The state field is required.',

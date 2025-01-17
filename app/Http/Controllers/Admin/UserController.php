@@ -10,16 +10,13 @@ use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ClientStoreRequest;
- 
+use App\Http\Requests\ClientUpdateRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+    
     public function getJson(): JsonResponse
     {
         $collection = User::query();
@@ -33,7 +30,7 @@ class UserController extends Controller
                     <a class="edit-modal btn btn-info" href="' . $editUrl . '">
                         <span class="glyphicon glyphicon-edit"></span> Edit
                     </a>
-                    <button class="delete-modal btn btn-danger" data-info="' . $row->id . '">
+                    <button data-toggle="modal" data-target="#delete-modal" class="delete-modal btn btn-danger" data-id="' . $row->id . '">
                         <span class="glyphicon glyphicon-trash"></span> Delete
                     </button>
                 ';
@@ -55,9 +52,7 @@ class UserController extends Controller
     }
 
     public function create(): View
-    {    
-        $this->authorize('create', Resource::class);     
-        dd(auth()->user());
+    {            
         return view('admin.pages.clients.create');
     }
 
@@ -76,6 +71,38 @@ class UserController extends Controller
             'phone_number' => $request['phone_number'],
         ]);
  
-        return to_route('admin.clients.index');
+        return to_route('admin.clients.index')->with('success', 'Client created successfully!');;
+    }
+
+
+    public function update(ClientUpdateRequest $request,$id): RedirectResponse
+    {
+        $user = User::find($id);
+
+        $data = array(
+            'name' => $request['name'],
+            'email' => $request['email'],            
+            'address' => $request['address'],
+            'city' => $request['city'],
+            'state' => $request['state'],
+            'zip' => $request['zip'],
+            'phone_number' => $request['phone_number'],
+        );
+        if($user->account_password != $request['account_password']){
+            $data['password'] = Hash::make($request['account_password']);
+            $data['account_password'] =$request['account_password'];
+        }
+        $user->update($data);
+
+        return to_route('admin.clients.index')->with('success', 'Client updated successfully!');;
+    }
+
+
+    public function destroy(Request $request): RedirectResponse
+    {
+        $user = User::find($request['id']);
+        $user->delete();
+        return to_route('admin.clients.index')->with('success', 'Client deleted successfully!');;
+       
     }
 }

@@ -15,14 +15,15 @@
                 <form method="POST" action="{{ route('admin.clients.store') }}">
                     @csrf
                     @if ($errors->any())  
-                        @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{ $error }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                        @endforeach
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <ul>
+                            @foreach ($errors->all() as $error)
+                                
+                                <li> {{ $error }}</li>   
+                                 
+                            @endforeach
+                            </ul>
+                        </div>
                     @endif
                     <div class="form-body">                   
                         <div class="form-group row">
@@ -77,8 +78,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                     name="password"  placeholder="Please input Password" value="{{ old('password') }}">
+                                <input type="password" class="form-control @error('account_password') is-invalid @enderror"
+                                     name="account_password"  placeholder="Please input Password" value="{{ old('account_password') }}">
                             </div>
                         </div>
                         

@@ -3,13 +3,99 @@
  
 @endsection
 @section('content')
-    <div class="card">
-        <h2 class="card-header">Edit</h2>
-        <div class="card-body">
-                         
+<div class="row">
+    <div class="col-12 col-lg-9 mx-auto">
+        <div class="card radius-15">
+            <div class="card-body">
+                <div class="card-title">
+                    <h4 class="mb-0">Edit Client</h4>
+                </div>
+                <hr/>
+               
+                <form method="POST" action="{{ route('admin.clients.update',$user->id) }}">
+                    @csrf
+                    @method('PUT')
+                    @if ($errors->any())  
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <ul>
+                            @foreach ($errors->all() as $error)
+                                
+                                <li> {{ $error }}</li>   
+                                 
+                            @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="form-body">                   
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                     name="name" value="{{ $user->name }}" placeholder="Please input Name" autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                     name="email"  placeholder="Please input Email" value="{{ $user->email }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('address') is-invalid @enderror"
+                                     name="address"  placeholder="Please input Address" value="{{ $user->address }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">City</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('city') is-invalid @enderror"
+                                     name="city"  placeholder="Please input City" value="{{$user->city }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">State</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('state') is-invalid @enderror"
+                                     name="state"  placeholder="Please input State" value="{{ $user->state }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Zip</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('zip') is-invalid @enderror"
+                                     name="zip"  placeholder="Please input Zip" value="{{ $user->zip }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Phone Number</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('phone_number') is-invalid @enderror"
+                                     name="phone_number"  placeholder="Please input Phone Number" value="{{ $user->phone_number }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control @error('account_password') is-invalid @enderror"
+                                     name="account_password"  placeholder="Please input Password" value="{{ $user->account_password }}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-danger px-4">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-      
+</div>
 @endsection
 @section('script')
  
