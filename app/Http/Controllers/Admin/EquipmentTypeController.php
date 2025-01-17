@@ -11,9 +11,22 @@ use App\Models\EquipmentType;
 use App\Http\Requests\CreateEquipmentTypeRequest;
 use App\Http\Requests\UpdateEquipmentTypeRequest;
 use Illuminate\Http\RedirectResponse;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class EquipmentTypeController extends Controller
 {
+    public function __construct(Request $request)
+    {
+        dd($request->all());
+
+    //     if (!$request->user()->hasRole('Client'))
+    //     {
+    //         return redirect('/admin/dashboard');
+    //     }
+    
+    }
+
     public function index(): View
     {
         return view('admin.pages.equipment-type.index');

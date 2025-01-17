@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ClientStoreRequest;
 use App\Http\Requests\ClientUpdateRequest;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -70,7 +71,13 @@ class UserController extends Controller
             'zip' => $request['zip'],
             'phone_number' => $request['phone_number'],
         ]);
- 
+
+        $role = Role::where('name','Client')->first();
+        if(empty($role)){
+            $role = Role::create(['name' => 'Client','guard_name'=>'web']);
+        }
+        $user->assignRole($role);   
+        
         return to_route('admin.clients.index')->with('success', 'Client created successfully!');;
     }
 

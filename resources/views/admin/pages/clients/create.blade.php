@@ -8,7 +8,7 @@
         <div class="card radius-15">
             <div class="card-body">
                 <div class="card-title">
-                    <h4 class="mb-0">Create Client</h4>
+                    <h4 class="mb-0">Add Client</h4>
                 </div>
                 <hr/>
                

@@ -65,10 +65,10 @@
                                             </button>
                                         </div>
                                         <hr>
-                                        <div class="text-center">
+                                        <!-- <div class="text-center">
                                             <p class="mb-0">Don't have an account? <a href="{{route('register')}}">Sign up</a>
                                             </p>
-                                        </div>
+                                        </div> -->
                                     </form>
 								</div>
 							</div>

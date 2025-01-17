@@ -18,6 +18,7 @@
                 <div class="menu-title">Dashboard</div>
             </a>
         </li>
+        @role('Admin')
         <li>
             <a href="{{route('admin.clients.index')}}">
                 <div class="parent-icon icon-color-3"> <i class="bx bx-group"></i>
@@ -74,7 +75,8 @@
                 </div>
                 <div class="menu-title">Browse Inventory by Manufacture</div>
             </a>
-        </li>    
+        </li> 
+        @endrole   
     </ul>
     <!--end navigation-->
 </div>

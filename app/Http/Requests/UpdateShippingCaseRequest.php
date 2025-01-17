@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-class UpdateEquipmentTypeRequest extends FormRequest
+
+class UpdateShippingCaseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,20 @@ class UpdateEquipmentTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type_name' => [
-                'required',                 
-                Rule::unique('equipment_types')->ignore($this->route('id')),
-            ],
+            'manufacture'=>'required',
+            'model_number'=>'required',
+            'serial_number'=>'required',  
+            'asset_tag'=>'required',            
         ];
     }
 
     public function messages()
     {
         return [
-            'type_name.required' => 'The type of equipment field is required.',
-            'type_name.unique' => 'The type of equipment is already in use.',          
+            'manufacture.required' => 'The manufacture field is required.',
+            'model_number.required' => 'The model number field is required.',
+            'serial_number.required' => 'The serial number field is required.',
+            'asset_tag.required' => 'The asset tag field is required.',
         ];
     }
 }
